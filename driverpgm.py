@@ -1,7 +1,12 @@
 from Extractor import Extractor
-inputfiles=["sample1.rtf", "sample2.rtf", "sample3.rtf", "sample4.rtf", "sample5.rtf", "sample6.rtf"]
+import os
+datadir = './newdata/'
+inputfiles = os.listdir(datadir)
+for i in xrange(len(inputfiles)):
+    inputfiles[i] = datadir+inputfiles[i]
 result = Extractor(inputfiles)
 ans = result.getalldiagnosis()
+print(ans)
 new = []
 for i, j in ans.items():
     new += j
