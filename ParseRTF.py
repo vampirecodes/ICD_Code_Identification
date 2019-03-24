@@ -1,14 +1,6 @@
     # -*- coding: utf-8 -*-
 
-"""
-Extract text in RTF Files. Refactored to use with Python 3.x
-Source:
-    http://stackoverflow.com/a/188877
-Code created by Markus Jarderot: http://mizardx.blogspot.com
-"""
-
 import re
-
 
 def striprtf(text):
    pattern = re.compile(r"\\([a-z]{1,32})(-?\d{1,10})?[ ]?|\\'([0-9a-f]{2})|\\([^a-z])|([{}])|[\r\n]+|(.)", re.I)
@@ -111,7 +103,12 @@ def striprtf(text):
          elif word == 'u':
             c = int(arg)
             if c < 0: c += 0x10000
-            if c > 127: out.append(chr(c)) #NOQA
+            if c > 127:
+               try:
+                  out.append(chr(c)) #NOQA
+               except:
+                  pass
+                  #print "line 118 parseRTF"
             else: out.append(chr(c))
             curskip = ucskip
       elif hex: # \'xx
